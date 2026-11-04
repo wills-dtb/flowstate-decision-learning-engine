@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flowstate-decision-learning-engine"
+version = "0.1.0"
+description = "Auditable learning and savings controls for cross-functional AI-assisted work"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+flowstate-equity = "flowstate_equity.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
