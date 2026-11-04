@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Flowstate Savings Illustrator</title>
+  <style>
+    :root{color-scheme:dark;--ink:#f7f7f2;--muted:#a6ada8;--lime:#b9f227;--coral:#ff775f;--panel:#171a19}
+    *{box-sizing:border-box}body{margin:0;background:#0d0f0e;color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+    main{max-width:960px;margin:auto;padding:48px 24px}h1{font-size:clamp(2.3rem,7vw,5rem);line-height:.95;margin:.2em 0}.eyebrow{color:var(--lime);text-transform:uppercase;letter-spacing:.16em;font-weight:800}
+    .intro{max-width:700px;color:var(--muted);font-size:1.15rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:32px 0}.card{background:var(--panel);border:1px solid #303632;border-radius:18px;padding:22px}.value{font-size:2.2rem;font-weight:800}.cash{color:var(--lime)}.capacity{color:#82cfff}.unvalidated{color:var(--coral)}
+    label{display:flex;justify-content:space-between;margin-top:22px;font-weight:650}input[type=range]{width:100%;accent-color:var(--lime)}select{width:100%;padding:12px;border-radius:10px;background:#222725;color:white;border:1px solid #434943}small{color:var(--muted)}
+    .note{border-left:4px solid var(--coral);padding:12px 18px;background:#211916}.formula{font-family:ui-monospace,monospace;color:var(--muted)}
+  </style>
+</head>
+<body><main>
+  <div class="eyebrow">Decision Learning & Savings Engine</div>
+  <h1>Value without<br>the accounting fiction.</h1>
+  <p class="intro">Explore a scenario. Time released stays capacity unless there is evidence that spend, budget or a contract actually reduced.</p>
+  <section class="card">
+    <label>Accepted AI-assisted items per month <output id="itemsOut">500</output></label><input id="items" type="range" min="10" max="5000" value="500" step="10">
+    <label>Minutes released per accepted item <output id="minutesOut">18</output></label><input id="minutes" type="range" min="0" max="120" value="18">
+    <label>Loaded hourly cost <output id="rateOut">£55</output></label><input id="rate" type="range" min="15" max="250" value="55">
+    <label>Cash conversion evidence</label><select id="evidence"><option value="0">None — capacity only</option><option value="0.25">25% spend reduction evidenced</option><option value="0.5">50% spend reduction evidenced</option><option value="1">100% spend reduction evidenced</option></select>
+  </section>
+  <section class="grid">
+    <div class="card"><small>Released human capacity</small><div class="value capacity" id="hours">150 h</div><small>Available for throughput, quality, or service—not cash.</small></div>
+    <div class="card"><small>Realised cash savings</small><div class="value cash" id="cash">£0</div><small>Only the evidenced conversion is counted.</small></div>
+    <div class="card"><small>Unvalidated cost equivalent</small><div class="value unvalidated" id="potential">£8,250</div><small>A planning signal, never booked as savings.</small></div>
+  </section>
+  <p class="note"><strong>Control:</strong> changing the loaded hourly rate changes the cost equivalent, not the underlying hours. Selecting evidence moves only the evidenced portion into realised cash.</p>
+  <p class="formula">capacity = accepted items × minutes released ÷ 60<br>cost equivalent = capacity × hourly cost</p>
+</main><script>
+const ids=['items','minutes','rate','evidence']; const el=Object.fromEntries(ids.map(x=>[x,document.getElementById(x)]));
+const money=new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0});
+function render(){const items=+el.items.value, mins=+el.minutes.value, rate=+el.rate.value, conversion=+el.evidence.value;const hours=items*mins/60,total=hours*rate,cash=total*conversion;
+itemsOut.value=items.toLocaleString();minutesOut.value=mins;rateOut.value=money.format(rate);document.getElementById('hours').textContent=hours.toLocaleString(undefined,{maximumFractionDigits:1})+' h';document.getElementById('cash').textContent=money.format(cash);document.getElementById('potential').textContent=money.format(total-cash)}
+ids.forEach(x=>el[x].addEventListener('input',render));render();
+</script></body></html>
+
