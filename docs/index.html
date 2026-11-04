@@ -4,36 +4,61 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Flowstate Savings Illustrator</title>
   <style>
-    :root{color-scheme:dark;--ink:#f7f7f2;--muted:#a6ada8;--lime:#b9f227;--coral:#ff775f;--panel:#171a19}
-    *{box-sizing:border-box}body{margin:0;background:#0d0f0e;color:var(--ink);font:16px/1.5 system-ui,sans-serif}
-    main{max-width:960px;margin:auto;padding:48px 24px}h1{font-size:clamp(2.3rem,7vw,5rem);line-height:.95;margin:.2em 0}.eyebrow{color:var(--lime);text-transform:uppercase;letter-spacing:.16em;font-weight:800}
-    .intro{max-width:700px;color:var(--muted);font-size:1.15rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:32px 0}.card{background:var(--panel);border:1px solid #303632;border-radius:18px;padding:22px}.value{font-size:2.2rem;font-weight:800}.cash{color:var(--lime)}.capacity{color:#82cfff}.unvalidated{color:var(--coral)}
-    label{display:flex;justify-content:space-between;margin-top:22px;font-weight:650}input[type=range]{width:100%;accent-color:var(--lime)}select{width:100%;padding:12px;border-radius:10px;background:#222725;color:white;border:1px solid #434943}small{color:var(--muted)}
-    .note{border-left:4px solid var(--coral);padding:12px 18px;background:#211916}.formula{font-family:ui-monospace,monospace;color:var(--muted)}
+    :root{color-scheme:dark;--ink:#f7f7f2;--muted:#aab1ac;--lime:#b9f227;--blue:#82cfff;--coral:#ff806a;--panel:#171a19;--line:#343a36}
+    *{box-sizing:border-box}body{margin:0;background:#0d0f0e;color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}main{max-width:1060px;margin:auto;padding:48px 24px 72px}
+    h1{font-size:clamp(2.4rem,7vw,5.2rem);line-height:.95;letter-spacing:-.04em;margin:.18em 0}.eyebrow{color:var(--lime);text-transform:uppercase;letter-spacing:.15em;font-size:.82rem;font-weight:800}.intro{max-width:760px;color:var(--muted);font-size:1.18rem}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:32px 0 18px}.step{padding:13px 15px;border:1px solid var(--line);border-radius:12px;color:var(--muted)}.step b{color:var(--ink);display:block}.step span{color:var(--lime);margin-right:7px}
+    .layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px}.card h2{margin:0 0 4px;font-size:1.15rem}.hint{color:var(--muted);margin:0 0 20px;font-size:.92rem}
+    .control{padding:15px 0;border-top:1px solid #292e2b}.control:first-of-type{border-top:0}.control label{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-weight:700}.control output{white-space:nowrap;color:var(--lime);font-size:1.12rem}.control small{display:block;color:var(--muted);margin-top:3px}.control.cash-control{border:1px solid #4e4230;border-radius:13px;padding:16px;margin-top:14px;background:#1f1c15}.control.cash-control output{color:#ffd27b}
+    input[type=range]{width:100%;margin:14px 0 2px;accent-color:var(--lime)}.cash-control input{accent-color:#ffd27b}
+    .result{padding:18px 0;border-bottom:1px solid #292e2b}.result:last-of-type{border:0}.result small{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.value{font-size:clamp(2rem,5vw,3.5rem);font-weight:850;line-height:1.15}.capacity{color:var(--blue)}.cash{color:var(--lime)}.unvalidated{color:var(--coral)}.result p{margin:5px 0 0;color:var(--muted);font-size:.9rem}
+    .calculation{grid-column:1/-1;background:#111412}.calculation h2{margin-bottom:16px}.equations{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.equation{padding:16px;border-radius:12px;background:#191d1b}.equation b{display:block;margin-bottom:5px}.equation code{color:var(--muted);white-space:normal}.explain{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:18px}.explain h3{margin-top:0}.explain ul{padding-left:20px;color:var(--muted)}.evidence{border-left:4px solid var(--lime)}.warning{border-left:4px solid var(--coral)}
+    @media(max-width:760px){.layout,.explain{grid-template-columns:1fr}.steps,.equations{grid-template-columns:1fr}.steps{gap:6px}}
   </style>
 </head>
 <body><main>
-  <div class="eyebrow">Decision Learning & Savings Engine</div>
-  <h1>Value without<br>the accounting fiction.</h1>
-  <p class="intro">Explore a scenario. Time released stays capacity unless there is evidence that spend, budget or a contract actually reduced.</p>
-  <section class="card">
-    <label>Accepted AI-assisted items per month <output id="itemsOut">500</output></label><input id="items" type="range" min="10" max="5000" value="500" step="10">
-    <label>Minutes released per accepted item <output id="minutesOut">18</output></label><input id="minutes" type="range" min="0" max="120" value="18">
-    <label>Loaded hourly cost <output id="rateOut">£55</output></label><input id="rate" type="range" min="15" max="250" value="55">
-    <label>Cash conversion evidence</label><select id="evidence"><option value="0">None — capacity only</option><option value="0.25">25% spend reduction evidenced</option><option value="0.5">50% spend reduction evidenced</option><option value="1">100% spend reduction evidenced</option></select>
+  <div class="eyebrow">Flowstate · Decision Learning & Savings Engine</div>
+  <h1>See where AI value<br>actually goes.</h1>
+  <p class="intro">Start with the work, estimate the time genuinely released, then count cash only when paid hours or spend have actually been removed.</p>
+  <div class="steps" aria-label="How the calculation works">
+    <div class="step"><b><span>1</span>Work adopted</b>How much AI-assisted work is used?</div>
+    <div class="step"><b><span>2</span>Capacity released</b>How many working hours are returned?</div>
+    <div class="step"><b><span>3</span>Cash evidenced</b>Did any paid cost actually disappear?</div>
+  </div>
+  <section class="layout">
+    <div class="card">
+      <h2>Build the monthly scenario</h2><p class="hint">Use values from reviewed, accepted work—not vendor claims.</p>
+      <div class="control"><label>Work items each month <output id="volumeOut">1,000</output></label><small>Total comparable tasks completed by the team.</small><input id="volume" type="range" min="50" max="10000" value="1000" step="50"></div>
+      <div class="control"><label>AI adoption rate <output id="adoptionOut">50%</output></label><small>The share completed with AI and accepted for use.</small><input id="adoption" type="range" min="0" max="100" value="50"></div>
+      <div class="control"><label>Time released per adopted item <output id="minutesOut">18 min</output></label><small>Measured against the same work without AI.</small><input id="minutes" type="range" min="0" max="120" value="18"></div>
+      <div class="control"><label>Loaded hourly employment cost <output id="rateOut">£55</output></label><small>Used to value capacity; it does not make that capacity cash.</small><input id="rate" type="range" min="15" max="250" value="55"></div>
+      <div class="control cash-control"><label>Verified paid hours removed <output id="verifiedOut">0 h</output></label><small>Only move this when overtime, contractor hours, budget or contracted spend has actually reduced. It cannot exceed released capacity.</small><input id="verified" type="range" min="0" max="150" value="0" step="1"></div>
+    </div>
+    <div class="card" aria-live="polite">
+      <h2>Monthly outcome</h2><p class="hint"><span id="adoptedItems">500</span> AI-assisted items accepted and used.</p>
+      <div class="result"><small>Released human capacity</small><div class="value capacity" id="hours">150 h</div><p>Time available for more work, better service or improved quality.</p></div>
+      <div class="result"><small>Confirmed cash saving</small><div class="value cash" id="cash">£0</div><p>Only paid cost demonstrably removed from the business.</p></div>
+      <div class="result"><small>Remaining capacity value</small><div class="value unvalidated" id="capacityValue">£8,250</div><p>Useful economic value, but not claimable as cash savings.</p></div>
+    </div>
+    <div class="card calculation"><h2>How this result was calculated</h2><div class="equations">
+      <div class="equation"><b>Accepted AI work</b><code id="adoptionCalc">1,000 × 50% = 500 items</code></div>
+      <div class="equation"><b>Capacity released</b><code id="capacityCalc">500 × 18 min ÷ 60 = 150 h</code></div>
+      <div class="equation"><b>Cash confirmed</b><code id="cashCalc">0 verified h × £55 = £0</code></div>
+    </div></div>
+    <div class="explain">
+      <div class="card evidence"><h3>What counts as cash evidence?</h3><ul><li>Overtime payments actually reduced</li><li>Contractor hours or fees removed</li><li>A supplier contract reduced or cancelled</li><li>An approved budget line removed</li></ul></div>
+      <div class="card warning"><h3>What does not count as cash?</h3><ul><li>People simply finishing work sooner</li><li>Time redirected to higher-value tasks</li><li>A theoretical hourly-rate calculation</li><li>Future savings without financial proof</li></ul></div>
+    </div>
   </section>
-  <section class="grid">
-    <div class="card"><small>Released human capacity</small><div class="value capacity" id="hours">150 h</div><small>Available for throughput, quality, or service—not cash.</small></div>
-    <div class="card"><small>Realised cash savings</small><div class="value cash" id="cash">£0</div><small>Only the evidenced conversion is counted.</small></div>
-    <div class="card"><small>Unvalidated cost equivalent</small><div class="value unvalidated" id="potential">£8,250</div><small>A planning signal, never booked as savings.</small></div>
-  </section>
-  <p class="note"><strong>Control:</strong> changing the loaded hourly rate changes the cost equivalent, not the underlying hours. Selecting evidence moves only the evidenced portion into realised cash.</p>
-  <p class="formula">capacity = accepted items × minutes released ÷ 60<br>cost equivalent = capacity × hourly cost</p>
 </main><script>
-const ids=['items','minutes','rate','evidence']; const el=Object.fromEntries(ids.map(x=>[x,document.getElementById(x)]));
-const money=new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0});
-function render(){const items=+el.items.value, mins=+el.minutes.value, rate=+el.rate.value, conversion=+el.evidence.value;const hours=items*mins/60,total=hours*rate,cash=total*conversion;
-itemsOut.value=items.toLocaleString();minutesOut.value=mins;rateOut.value=money.format(rate);document.getElementById('hours').textContent=hours.toLocaleString(undefined,{maximumFractionDigits:1})+' h';document.getElementById('cash').textContent=money.format(cash);document.getElementById('potential').textContent=money.format(total-cash)}
-ids.forEach(x=>el[x].addEventListener('input',render));render();
+const ids=['volume','adoption','minutes','rate','verified'];const el=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
+const money=new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0});const number=new Intl.NumberFormat('en-GB',{maximumFractionDigits:1});
+function render(){const volume=+el.volume.value,adoption=+el.adoption.value,minutes=+el.minutes.value,rate=+el.rate.value;const adopted=volume*adoption/100,hours=adopted*minutes/60;
+  el.verified.max=Math.max(0,Math.floor(hours));if(+el.verified.value>hours)el.verified.value=Math.floor(hours);const verified=+el.verified.value,cash=verified*rate,remaining=Math.max(0,hours-verified)*rate;
+  volumeOut.value=volume.toLocaleString('en-GB');adoptionOut.value=adoption+'%';minutesOut.value=minutes+' min';rateOut.value=money.format(rate);verifiedOut.value=number.format(verified)+' h';
+  adoptedItems.textContent=number.format(adopted);document.getElementById('hours').textContent=number.format(hours)+' h';document.getElementById('cash').textContent=money.format(cash);capacityValue.textContent=money.format(remaining);
+  adoptionCalc.textContent=`${volume.toLocaleString('en-GB')} × ${adoption}% = ${number.format(adopted)} items`;capacityCalc.textContent=`${number.format(adopted)} × ${minutes} min ÷ 60 = ${number.format(hours)} h`;cashCalc.textContent=`${number.format(verified)} verified h × ${money.format(rate)} = ${money.format(cash)}`;
+}
+ids.forEach(id=>el[id].addEventListener('input',render));render();
 </script></body></html>
 
