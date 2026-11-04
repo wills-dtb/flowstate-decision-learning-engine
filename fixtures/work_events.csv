@@ -1,0 +1,10 @@
+event_id,occurred_at,function,workflow,tool,decision,quality_score,baseline_minutes,actual_minutes,baseline_cost,actual_cost,defect,reviewer_role
+evt-001,2026-10-01T09:00:00Z,Marketing,campaign-brief,assistant-a,accepted,0.94,90,42,120,55,false,marketing-lead
+evt-002,2026-10-02T10:00:00Z,Sales,campaign-brief,assistant-a,accepted,0.89,75,38,100,52,false,sales-manager
+evt-003,2026-10-03T11:00:00Z,Operations,campaign-brief,assistant-a,accepted,0.91,80,41,110,56,false,ops-lead
+evt-004,2026-10-04T12:00:00Z,People,policy-summary,assistant-b,rejected,0.58,60,55,80,74,true,people-partner
+evt-005,2026-10-05T13:00:00Z,Legal,policy-summary,assistant-b,rejected,0.62,70,65,150,140,false,legal-counsel
+evt-006,2026-10-06T14:00:00Z,Finance,invoice-triage,assistant-c,accepted,0.88,45,20,75,32,false,finance-manager
+evt-007,2026-10-07T15:00:00Z,Operations,invoice-triage,assistant-c,accepted,0.86,40,18,68,30,false,ops-lead
+evt-008,2026-10-08T16:00:00Z,Finance,invoice-triage,assistant-c,rejected,0.77,42,35,70,58,false,finance-manager
+
