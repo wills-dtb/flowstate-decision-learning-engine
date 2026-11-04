@@ -6,8 +6,9 @@ An interview technical project for Flowstate: a small, runnable engine that turn
 
 [![Savings illustration preview](docs/preview.svg)](https://wills-dtb.github.io/flowstate-decision-learning-engine/)
 
-**[Open the interactive savings slider →](https://wills-dtb.github.io/flowstate-decision-learning-engine/)**  
-The demo is plain HTML/JavaScript in `docs/index.html`; it can also be opened locally. GitHub Pages must be enabled after repository creation for the hosted link to resolve.
+**[Open the interactive savings illustration →](https://wills-dtb.github.io/flowstate-decision-learning-engine/)**
+
+The demo starts with monthly work and accepted AI adoption, calculates released capacity, and only converts verified paid hours into cash. Every result includes its worked calculation. It is plain HTML/JavaScript in `docs/index.html` and can also be opened locally.
 
 ## What it demonstrates
 
